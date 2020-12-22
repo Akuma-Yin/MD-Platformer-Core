@@ -273,9 +273,16 @@ SoftInit:
 
 .table
 		dc.l gmTest
+; ==============================================================
+; --------------------------------------------------------------
+; Test game mode
 ; --------------------------------------------------------------
 
 gmTest:
+		move.w	#$8100|%01110100,($C00004).l		; display: ON; V-int: ON; DMA: ON; V-res: $1C 
+		move.l	#$C0000000,($C00004).l
+		move.w	#$0EEE,($C00000).l
+
 		move.b	#4,VintRoutine.w			; enable screen v-int routine
 	vsync							; wait for the next frame
 		bra.s	*
